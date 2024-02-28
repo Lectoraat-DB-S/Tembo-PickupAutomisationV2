@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "oj+8PYNrQpalGj6joyMGnaIwuAqx+sTwh5Jjbpl6aa+i2ND7377/78bBuo2KR2cJaJNQrfws/JyfwVR7uMrckw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\Tembo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lucmb\\.nuget\\packages\\beckhoff.twincat.ads\\6.1.197\\beckhoff.twincat.ads.6.1.197.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\beckhoff.twincat.ads.abstractions\\6.1.197\\beckhoff.twincat.ads.abstractions.6.1.197.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\beckhoff.twincat.ads.server\\6.1.197\\beckhoff.twincat.ads.server.6.1.197.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\system.componentmodel.composition\\6.0.0\\system.componentmodel.composition.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.0\\system.configuration.configurationmanager.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\system.reactive\\6.0.0\\system.reactive.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\system.security.accesscontrol\\6.0.0\\system.security.accesscontrol.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\system.security.cryptography.protecteddata\\6.0.0\\system.security.cryptography.protecteddata.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\lucmb\\.nuget\\packages\\telnet\\0.11.3\\telnet.0.11.3.nupkg.sha512"
+  ],
+  "logs": []
+}
