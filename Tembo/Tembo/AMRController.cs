@@ -6,22 +6,33 @@ namespace Tembo
 {
     public class AmrController
     {
-        TelnetController _connection;
+        private TelnetController _connection;
 
-        const string Password = "admin";
+        private readonly string _move = "doTask move ";
+        private readonly string _moveDone = "Completed doing task move ";
+
+        const string Password = "adept\r\n";
+
+        public string name;
 
         /// <summary>
         /// Constructor for amr controller start connection
         /// </summary>
         /// <param name="port"></param>
         /// <param name="ip"></param>
-        public AmrController(int port, string ip)
+        public AmrController(int port, string ip, string name)
         {
+            Console.WriteLine("AmrController");
+
             _connection = new TelnetController(ip, port);
-            // exception neer zetten
-            _connection.WaitForMessage("Enter password");
+            Console.WriteLine("Connection");
+
+            // exception neer zetten 
+            _connection.WaitForMessage("Enter password:\r\n", name);
             _connection.SendMessage(Password);
-            _connection.WaitForMessage("End of commands");
+            Console.WriteLine(Password);
+            _connection.WaitForMessageContains("End of commands\r\n");
+            this.name = name;
         }
 
         /// <summary>
@@ -31,9 +42,7 @@ namespace Tembo
         {
             // turn top motors off
             _connection.SendMessage("outputOff 01");
-            _connection.SendMessage("outputOff 02");
             _connection.SendMessage("outputOff 03");
-            _connection.SendMessage("outputOff 04");
         }
 
         /// <summary>
@@ -41,6 +50,9 @@ namespace Tembo
         /// </summary>
         public void Emergency_InActive()
         {
+            _connection.SendMessage(""); // Move een stuk om veilig te staan
+            // motors omlaag
+            // zet terug op start positie
             //todo: set top motors to latest state
         }
 
@@ -50,6 +62,7 @@ namespace Tembo
         /// <param name="pos"></param>
         public void Sent_to(AmrPositions pos)
         {
+            Console.WriteLine(pos.GetDescription());
             _connection.SendMessage(pos.GetDescription());
         }
         /// <summary>
@@ -58,27 +71,57 @@ namespace Tembo
         /// <param name="res"></param>
         public void WaitForArrival(AmrResponses res)
         {
-            _connection.WaitForMessage(res.GetDescription());
+            Console.WriteLine(name + ": Checking");
+            _connection.WaitForMessage(res.GetDescription(), name);
         }
 
         /// <summary>
         /// Check if there is an emergency stop and wait for one
         /// </summary>
         /// <returns></returns>
-        public bool CheckforEstop()
+        public bool CheckForEstop()
         {
-            _connection.WaitForMessage("EStop pressed");
+            Console.WriteLine(name + ": Estop");
+            _connection.WaitForMessage("EStop pressed\r\n", name);
             return true;
         }
 
         /// <summary>
         /// Check if the motors are enabled and work
-        /// </summary>
+        /// </summary>a
         /// <returns></returns>
         public bool CheckMotorsEnabled()
         {
-            _connection.WaitForMessage("Motors enabled");
+            _connection.WaitForMessage("Motors enabled", name);
             return true;
+        }
+
+        public void TrayRequest()
+        {
+            _connection.SendMessage(macros.MotorsUp.GetDescription()); //MotorsUp macro
+            _connection.WaitForMessageContains("Completed macro MotorsUp\r\n"); // done
+
+            _connection.SendMessage(AmrPositions.Beginpos.GetDescription()); //Go To Wait For tray
+            _connection.WaitForMessage(AmrResponses.Beginpos.GetDescription(), name); // done
+
+            _connection.SendMessage(_move + 1300 + "\r\n"); //Move 1300
+            _connection.WaitForMessageContains(_moveDone + 1300 + "\r\n"); // done
+
+            _connection.SendMessage(macros.MotorsDown.GetDescription()); //Motors down
+            _connection.WaitForMessageContains("Completed macro MotorsDown\r\n"); // done
+
+            _connection.SendMessage(_move + 680 + "\r\n"); //Move 690
+            _connection.WaitForMessageContains(_moveDone + 680 + "\r\n"); // done
+
+            _connection.SendMessage(macros.MotorsUp.GetDescription()); //Motors up
+            _connection.WaitForMessageContains("Completed macro MotorsUp\r\n"); // done
+
+            _connection.SendMessage(_move + 800 + "\r\n"); //Move 800
+            _connection.WaitForMessageContains(_moveDone + 800 + "\r\n"); // done
+
+            _connection.SendMessage(AmrPositions.R2D2.GetDescription()); //Go to R2D2
+            _connection.WaitForMessage(AmrResponses.R2D2.GetDescription(), name); // done
+
         }
 
     }
@@ -88,11 +131,24 @@ namespace Tembo
     /// </summary>
     public enum AmrPositions
     {
-        [Description("GoTo Beginpositie_AMR")]
+        [Description("GoTo WaitForTrayRequest\r\n")]
         Beginpos,
-        [Description("patrolonce DemoRoute")]
-        DemoRoute
+        [Description("GoTo R2-D2\r\n")]
+        R2D2,
+        [Description("patrolonce TemboTest\r\n")]
+        TemboTest
 
+    }
+
+    /// <summary>
+    /// Enumarator with all macros on the amr
+    /// </summary>
+    public enum macros
+    {
+        [Description("ExecuteMacro MotorsUp\r\n")]
+        MotorsUp,
+        [Description("ExecuteMacro MotorsDown\r\n")]
+        MotorsDown
     }
 
     /// <summary>
@@ -100,8 +156,12 @@ namespace Tembo
     /// </summary>
     public enum AmrResponses
     {
-        [Description()]
-        Beginpos
+        [Description("Arrived at WaitForTrayRequest\r\n")]
+        Beginpos,
+        [Description("Finished patrolling route TemboTest\r\n")]
+        Patrol,
+        [Description("Arrived at R2-D2\r\n")]
+        R2D2
     }
 
     /// <summary>

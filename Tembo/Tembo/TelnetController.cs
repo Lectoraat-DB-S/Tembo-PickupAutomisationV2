@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System.Drawing;
+using System.Net.Sockets;
 
 namespace Tembo
 {
@@ -31,6 +32,7 @@ namespace Tembo
         /// <returns></returns>
         public string SendMessage(string command)
         {
+            Console.WriteLine("sending: " + command);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(command);
             _stream.Write(data, 0, data.Length);
             Thread.Sleep(10);
@@ -54,14 +56,34 @@ namespace Tembo
         /// </summary>
         /// <param name="expectedMessage"></param>
         /// <returns></returns>
-        public bool WaitForMessage(string expectedMessage)
+        public bool WaitForMessage(string expectedMessage, string name)
         {
             bool recieved = false;
             while (!recieved)
             {
-                if (expectedMessage.Equals(ReadMessage()))
+                string message = ReadMessage();
+                Console.WriteLine(name + ": "+ message + " : " + message.Equals(expectedMessage) + "Wanted: " + expectedMessage);
+                if (message.Equals(expectedMessage))
                 {
+                    Console.WriteLine("Recieved");
                     recieved= true;
+                }
+            }
+            return recieved;
+        }
+
+        public bool WaitForMessageContains(string expectedMessage)
+        {
+            Console.WriteLine("Contains");
+            bool recieved = false;
+            while (!recieved)
+            {
+                string message = ReadMessage();
+                Console.WriteLine(message + " : " + message.Contains(expectedMessage));
+                if (message.Contains(expectedMessage))
+                {
+                    Console.WriteLine("Recieved");
+                    recieved = true;
                 }
             }
             return recieved;

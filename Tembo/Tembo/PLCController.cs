@@ -6,7 +6,7 @@ namespace Tembo
 {
     internal class PlcController
     {
-        private AdsClient _plCconnection = new();
+        private AdsClient _plcConnection = new();
 
         /// <summary>
         /// Constructor for plc controller to start connection
@@ -15,13 +15,13 @@ namespace Tembo
         /// <exception cref="Exception"></exception>
         public PlcController(AmsAddress amsnetid) 
         {
-            _plCconnection.Connect(amsnetid);
-            Console.WriteLine("Connected: " + _plCconnection.IsConnected.ToString());
-            if (!_plCconnection.IsConnected)
+            _plcConnection.Connect(amsnetid);
+            Console.WriteLine("Connected: " + _plcConnection.IsConnected.ToString());
+            if (!_plcConnection.IsConnected)
             {
                 throw new Exception("Twincat not available");
             }
-            Console.WriteLine("Local Address: " + _plCconnection.Address);
+            Console.WriteLine("Local Address: " + _plcConnection.Address);
         }
 
         /// <summary>
@@ -31,8 +31,8 @@ namespace Tembo
         /// <returns></returns>
         public bool PLCSymbol_bool(PlcSymbols symbol)
         {
-            ISymbol result = _plCconnection.ReadSymbol(symbol.GetDescription());
-            return (bool)_plCconnection.ReadValue(result);
+            ISymbol result = _plcConnection.ReadSymbol(symbol.GetDescription());
+            return (bool)_plcConnection.ReadValue(result);
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace Tembo
         /// </summary>
         public void Emergency_Active()
         {
-            ISymbol result = _plCconnection.ReadSymbol(PlcSymbols.EmergencyStop.GetDescription());
-            _plCconnection.WriteValue(result, true);
+            ISymbol result = _plcConnection.ReadSymbol(PlcSymbols.EmergencyStop.GetDescription());
+            _plcConnection.WriteValue(result, true);
         }
 
 
@@ -50,8 +50,8 @@ namespace Tembo
         /// </summary>
         public void Emergency_InActive()
         {
-            ISymbol result = _plCconnection.ReadSymbol(PlcSymbols.EmergencyStop.GetDescription());
-            _plCconnection.WriteValue(result, false);
+            ISymbol result = _plcConnection.ReadSymbol(PlcSymbols.EmergencyStop.GetDescription());
+            _plcConnection.WriteValue(result, false);
         }
     }
 
