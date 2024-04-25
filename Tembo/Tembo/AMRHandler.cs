@@ -14,10 +14,10 @@ public class AmrHandler
     private AmrController? _amrControllerEStop; 
     private PlcController? _plcController;
 
-    private bool _amrReady;
+    private bool _amrReady = false;
     private bool _amrRun = true;
-    private bool _amrStop;
-    private bool _plcStop;
+    private bool _amrStop = false;
+    private bool _plcStop = false;
 
     private Thread _amrEstop;
     private Thread _amrHandle;
@@ -51,37 +51,45 @@ public class AmrHandler
         //_plcController = new PlcController(_amsnetid);
 
         // setup AMR Run connection 
-        _amrControllerRun = new AmrController(_amrPort, _amrIp, "Run");
+        _amrControllerRun = new AmrController(_amrPort, _amrIp);
 
         // setop AMR Estop connection
-        _amrControllerEStop = new AmrController(_amrPort, _amrIp, "Estop");
+        _amrControllerEStop = new AmrController(_amrPort, _amrIp);
     }
 
     private void HandleAmr()
     {
-        if (_amrRun)
-        {
-            SetToBeginPositionAndWait();
-        }
+            while (_amrRun)
+            {
+                SetToBeginPositionAndWait();
+            }
         // ReSharper disable once FunctionNeverReturns
     }
 
 
     private void EmergencyStopAmr()
     {
-        // Check if amr is running and plc is not in stop
-        while (_amrRun && !_plcStop)
+        while (true)
         {
-            Debug.Assert(_amrControllerEStop != null, nameof(_amrControllerEStop) + " != null");
-            if (!_amrStop && _amrControllerEStop.CheckForEstop() && !_plcStop)
+            // Check if amr is running and plc is not in stop
+            while (_amrRun && !_plcStop)
             {
-                Console.WriteLine("EMERGENCY! AMR");
-                _amrStop = true;
-                EmergencyActive();
-            }else if (_amrStop && _amrControllerEStop.CheckMotorsEnabled())
+                Debug.Assert(_amrControllerEStop != null, nameof(_amrControllerEStop) + " != null");
+                if (!_amrStop && _amrControllerEStop.CheckForEstop() && !_plcStop)
+                {
+                    Console.WriteLine("----------------------------------------EMERGENCY! AMR");
+                    _amrStop = true;
+                    EmergencyActive();
+                }
+            }
+
+            while (!_amrRun && !_plcStop)
             {
-                _amrStop = false;
-                EmergencyInActive();
+                if (_amrStop && _amrControllerEStop.CheckMotorsEnabled())
+                {
+                    _amrStop = false;
+                    EmergencyInActive();
+                }
             }
         }
     }
@@ -111,12 +119,13 @@ public class AmrHandler
     private void SetToBeginPositionAndWait()
     {
         SetToBeginPosition();
+        Console.WriteLine("AmrRun: " + _amrRun);
         while (_amrReady && _amrRun)
         {
             //Debug.Assert(_plcController != null, nameof(_plcController) + " != null");
             Console.Write("TrayRequest:");
-            string consoleResponse = Console.ReadLine();
-            if (consoleResponse.Equals("True")) //_plcController.PLCSymbol_bool(PlcSymbols.TrayRequest))
+            //string consoleResponse = Console.ReadLine();
+            if (true)//consoleResponse.Equals("True")) //_plcController.PLCSymbol_bool(PlcSymbols.TrayRequest))
             {
                 _amrReady = false;
                 TrayRequest();
@@ -127,15 +136,11 @@ public class AmrHandler
     private void SetToBeginPosition()
     {
         Console.WriteLine("Beginpos");
-        if (!_amrReady)
-        {
-            Console.WriteLine("amr ready true");
             Debug.Assert(_amrControllerRun != null, nameof(_amrControllerRun) + " != null");
             //Console.WriteLine(_amrController._connection.ReadMessage());
-            _amrControllerRun.Sent_to(AmrPositions.Beginpos);
-            _amrControllerRun.WaitForArrival(AmrResponses.Beginpos);
+            _amrControllerRun.Send_to(AmrPositions.WaitForTrayRequest, AmrResponses.WaitForTrayRequest);
             _amrReady = true;
-        }
+            Console.WriteLine("amr ready");
     }
 
     private void TrayRequest()
@@ -143,25 +148,41 @@ public class AmrHandler
         Debug.Assert(_amrControllerRun != null, nameof(_amrControllerRun) + " != null");
         if (_amrRun)
         {
-            _amrControllerRun.TrayRequest();
+            if (_amrControllerRun.TrayRequest())
+            {
+                Console.WriteLine("-----------------------------------------TrayrequestEstop");
+                _amrStop = true;
+                EmergencyActive();
+                _amrControllerRun.sayEstop();
+            }
         }
-        SetToBeginPositionAndWait();
     }
 
     private void EmergencyActive()
     {
         _amrRun = false;
-        _amrControllerEStop?.Emergency_Active();
-        _plcController?.Emergency_Active();
+        _amrControllerRun?.Emergency_Active();
+        //_plcController?.Emergency_Active();
     }
 
     private void EmergencyInActive()
     {
         if (!_amrStop && !_plcStop)
         {
-            _amrRun = true;
-            _plcController?.Emergency_InActive();
-            _amrControllerEStop?.Emergency_InActive();
+            //_plcController?.Emergency_InActive();
+            if ((bool)_amrControllerRun?.Emergency_InActive())
+            {
+                _amrRun = true;
+                Console.WriteLine("new start::");
+                _amrHandle = new Thread(HandleAmr);
+                _amrHandle.Start();
+            }
+            else
+            {
+                Console.WriteLine("--------------------------------EMERGENCY! AMR");
+                _amrStop = true;
+                EmergencyActive();
+            }
         }
     }
 

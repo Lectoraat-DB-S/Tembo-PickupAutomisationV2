@@ -30,15 +30,12 @@ namespace Tembo
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        public string SendMessage(string command)
+        public void SendMessage(string command)
         {
             Console.WriteLine("sending: " + command);
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(command);
             _stream.Write(data, 0, data.Length);
             Thread.Sleep(10);
-            string response = ReadMessage();
-
-            return response;
         }
         /// <summary>
         /// read message via telnet
@@ -56,13 +53,13 @@ namespace Tembo
         /// </summary>
         /// <param name="expectedMessage"></param>
         /// <returns></returns>
-        public bool WaitForMessage(string expectedMessage, string name)
+        public bool WaitForMessage(string expectedMessage)
         {
             bool recieved = false;
             while (!recieved)
             {
                 string message = ReadMessage();
-                Console.WriteLine(name + ": "+ message + " : " + message.Equals(expectedMessage) + "Wanted: " + expectedMessage);
+                Console.WriteLine("message: " + message + " = " + message.Equals(expectedMessage) + "\r\nWanted: " + expectedMessage);
                 if (message.Equals(expectedMessage))
                 {
                     Console.WriteLine("Recieved");
@@ -79,7 +76,7 @@ namespace Tembo
             while (!recieved)
             {
                 string message = ReadMessage();
-                Console.WriteLine(message + " : " + message.Contains(expectedMessage));
+                Console.WriteLine("message: " + message + " = " + message.Equals(expectedMessage) + "\r\nWanted: " + expectedMessage);
                 if (message.Contains(expectedMessage))
                 {
                     Console.WriteLine("Recieved");
