@@ -13,7 +13,7 @@ namespace Tembo
 
         private bool _eStop = false;
 
-        const string Password = "adept\r\n";
+        const string _password = "adept\r\n";
 
 
         /// <summary>
@@ -30,8 +30,8 @@ namespace Tembo
 
             // exception neer zetten 
             _connection.WaitForMessage("Enter password:\r\n");
-            _connection.SendMessage(Password);
-            Console.WriteLine(Password);
+            _connection.SendMessage(_password);
+            Console.WriteLine(_password);
             _connection.WaitForMessageContains("End of commands\r\n");
         }
 

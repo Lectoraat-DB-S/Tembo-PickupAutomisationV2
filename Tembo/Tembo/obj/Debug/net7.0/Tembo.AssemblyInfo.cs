@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tembo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c44429532afe2cbe3e3e98aba25de0276a50cba")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d40cfe05769abffdec92eb2cbc399320c640a50")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tembo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tembo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
