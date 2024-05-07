@@ -1,19 +1,16 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Net.NetworkInformation;
+﻿using System.ComponentModel;
 using System.Reflection;
-using System.Threading.Tasks;
 
 
 namespace Tembo
 {
     public class AmrController
     {
-        private TelnetController _connection;
+        private readonly TelnetController _connection;
 
-        private bool _eStop = false;
+        private bool _eStop;
 
-        const string _password = "adept\r\n";
+        private const string Password = "adept\r\n";
 
 
         /// <summary>
@@ -30,8 +27,8 @@ namespace Tembo
 
             // exception neer zetten 
             _connection.WaitForMessage("Enter password:\r\n");
-            _connection.SendMessage(_password);
-            Console.WriteLine(_password);
+            _connection.SendMessage(Password);
+            Console.WriteLine(Password);
             _connection.WaitForMessageContains("End of commands\r\n");
         }
 
@@ -54,7 +51,7 @@ namespace Tembo
             Console.WriteLine("emergency inactive");
             _eStop = false;
 
-            _connection.SendMessage(macros.MotorsDown.GetDescription());
+            _connection.SendMessage(Macros.MotorsDown.GetDescription());
             bool done = false;
             while (!done && !_eStop)// motors omlaag om zeker te zijn van motor positie
             {
@@ -68,7 +65,7 @@ namespace Tembo
                     return false;
                 }else if (response.Contains("Completed macro"))
                 {
-                    Console.WriteLine("Estop Macro Completed: " + macros.MotorsDown.ToString());
+                    Console.WriteLine("Estop Macro Completed: " + Macros.MotorsDown.ToString());
                     done = true;
                 }
             }
@@ -97,7 +94,7 @@ namespace Tembo
             return true;
         }
 
-        private void moveAmr(int dist, int speed)
+        private void MoveAmr(int dist, int speed)
         {
             _connection.SendMessage("doTask move " + dist + " " + speed + "\r\n"); //Move dist
             bool reached = false;
@@ -115,15 +112,16 @@ namespace Tembo
             }
         }
 
-        public void sayEstop()
+        public void SayEstop()
         {
-            //_connection.SendMessage("DoTask say A.M.R.stuck.in.Trayrequest\r\n");
+            _connection.SendMessage("DoTask say A.M.R.stuck.in.Trayrequest\r\n");
         }
 
         /// <summary>
         /// Sent amr to one of the positions in the enum positions
         /// </summary>
         /// <param name="pos"></param>
+        /// <param name="res"></param>
         public void Send_to(AmrPositions pos, AmrResponses res)
         {
             Console.WriteLine(pos.GetDescription());
@@ -148,7 +146,7 @@ namespace Tembo
         /// Sent amr to one of the positions in the enum positions
         /// </summary>
         /// <param name="macro"></param>
-        public void doMacro(macros macro)
+        public void DoMacro(Macros macro)
         {
             _connection.SendMessage(macro.GetDescription());
             bool done = false;
@@ -166,22 +164,22 @@ namespace Tembo
         public bool TrayRequest()
         {
             if (_eStop) return true;
-            doMacro(macros.MotorsUp); //MotorsUp macro
+            DoMacro(Macros.MotorsUp); //MotorsUp macro
 
             if (_eStop) return true;
-            moveAmr(1400, 100);
+            MoveAmr(1400, 100);
 
             if (_eStop) return true;
-            doMacro(macros.MotorsDown); //Motors down
+            DoMacro(Macros.MotorsDown); //Motors down
 
             if (_eStop) return true;
-            moveAmr(680, 100);
+            MoveAmr(680, 100);
 
             if (_eStop) return true;
-            doMacro(macros.MotorsUp); //Motors up
+            DoMacro(Macros.MotorsUp); //Motors up
 
             if (_eStop) return true;
-            moveAmr(800, 100);
+            MoveAmr(800, 100);
 
             if (_eStop) return true;
             Send_to(AmrPositions.TestOpstelling, AmrResponses.TestOpstelling);
@@ -204,7 +202,7 @@ namespace Tembo
     /// <summary>
     /// Enumarator with all macros on the amr
     /// </summary>
-    public enum macros
+    public enum Macros
     {
         [Description("ExecuteMacro MotorsUp\r\n")]
         MotorsUp,

@@ -14,10 +14,10 @@ public class AmrHandler
     private AmrController? _amrControllerEStop; 
     private PlcController? _plcController;
 
-    private bool _amrReady = false;
+    private bool _amrReady;
     private bool _amrRun = true;
-    private bool _amrStop = false;
-    private bool _plcStop = false;
+    private bool _amrStop;
+    private bool _plcStop;
 
     private Thread _amrEstop;
     private Thread _amrHandle;
@@ -85,13 +85,14 @@ public class AmrHandler
 
             while (!_amrRun && !_plcStop)
             {
-                if (_amrStop && _amrControllerEStop.CheckMotorsEnabled())
+                if (_amrControllerEStop != null && _amrStop && _amrControllerEStop.CheckMotorsEnabled())
                 {
                     _amrStop = false;
                     EmergencyInActive();
                 }
             }
         }
+        // ReSharper disable once FunctionNeverReturns
     }
 
     private void EmergencyStopPlc()
@@ -153,7 +154,7 @@ public class AmrHandler
                 Console.WriteLine("-----------------------------------------TrayrequestEstop");
                 _amrStop = true;
                 EmergencyActive();
-                _amrControllerRun.sayEstop();
+                _amrControllerRun.SayEstop();
             }
         }
     }
