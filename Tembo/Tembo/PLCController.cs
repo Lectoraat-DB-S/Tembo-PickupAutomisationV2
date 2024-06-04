@@ -35,6 +35,12 @@ namespace Tembo
             return (bool)_plcConnection.ReadValue(result);
         }
 
+        public void Set_PLCSymbolFalse(PlcSymbols symbol)
+        {
+            ISymbol result = _plcConnection.ReadSymbol(symbol.GetDescription());
+            _plcConnection.WriteValue(result, false);
+        }
+
         /// <summary>
         /// Activate emergency on the plc
         /// </summary>

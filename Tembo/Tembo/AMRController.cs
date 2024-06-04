@@ -94,6 +94,12 @@ namespace Tembo
             return true;
         }
 
+        /// <summary>
+        /// Move amr the given distance at the given speed
+        /// </summary>
+        /// <param name="dist"></param>
+        /// <param name="speed"></param>
+
         private void MoveAmr(int dist, int speed)
         {
             _connection.SendMessage("doTask move " + dist + " " + speed + "\r\n"); //Move dist
@@ -112,6 +118,9 @@ namespace Tembo
             }
         }
 
+        /// <summary>
+        /// Make sound to notify operator that emergency stop is active
+        /// </summary>
         public void SayEstop()
         {
             _connection.SendMessage("DoTask say A.M.R.stuck.in.Trayrequest\r\n");
@@ -161,6 +170,10 @@ namespace Tembo
             }
         }
 
+        /// <summary>
+        /// Execute a trayrequest to get the tray
+        /// </summary>
+        /// <returns></returns>
         public bool TrayRequest()
         {
             if (_eStop) return true;
@@ -181,8 +194,6 @@ namespace Tembo
             if (_eStop) return true;
             MoveAmr(800, 100);
 
-            if (_eStop) return true;
-            Send_to(AmrPositions.TestOpstelling, AmrResponses.TestOpstelling);
             return false;
         }
 

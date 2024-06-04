@@ -32,7 +32,7 @@ public class AmrHandler
         Console.WriteLine("Connected");
         _amrEstop = new Thread(EmergencyStopAmr);
         _amrHandle = new Thread(HandleAmr);
-        //_plcEstop = new Thread(EmergencyStopPlc);
+        _plcEstop = new Thread(EmergencyStopPlc);
     }
 
     /// <summary>
@@ -42,13 +42,13 @@ public class AmrHandler
     {
         _amrEstop.Start();
         _amrHandle.Start();
-        //_plcEstop.Start();
+        _plcEstop.Start();
     }
 
     private void Connect()
     {
         // setup PLC connection
-        //_plcController = new PlcController(_amsnetid);
+        _plcController = new PlcController(_amsnetid);
 
         // setup AMR Run connection 
         _amrControllerRun = new AmrController(_amrPort, _amrIp);
@@ -56,16 +56,6 @@ public class AmrHandler
         // setop AMR Estop connection
         _amrControllerEStop = new AmrController(_amrPort, _amrIp);
     }
-
-    private void HandleAmr()
-    {
-            while (_amrRun)
-            {
-                SetToBeginPositionAndWait();
-            }
-        // ReSharper disable once FunctionNeverReturns
-    }
-
 
     private void EmergencyStopAmr()
     {
@@ -113,7 +103,17 @@ public class AmrHandler
         }
     }
 
-    
+
+    private void HandleAmr()
+    {
+        while (_amrRun)
+        {
+            SetToBeginPositionAndWait();
+        }
+        // ReSharper disable once FunctionNeverReturns
+    }
+
+
     /// <summary>
     /// check if amr is at begin position if not set to begin position
     /// </summary>
@@ -123,13 +123,13 @@ public class AmrHandler
         Console.WriteLine("AmrRun: " + _amrRun);
         while (_amrReady && _amrRun)
         {
-            //Debug.Assert(_plcController != null, nameof(_plcController) + " != null");
+            Debug.Assert(_plcController != null, nameof(_plcController) + " != null");
             Console.Write("TrayRequest:");
-            //string consoleResponse = Console.ReadLine();
-            if (true)//consoleResponse.Equals("True")) //_plcController.PLCSymbol_bool(PlcSymbols.TrayRequest))
+            if (_plcController.PLCSymbol_bool(PlcSymbols.TrayRequest))
             {
                 _amrReady = false;
                 TrayRequest();
+                //_plcController.Set_PLCSymbolFalse(PlcSymbols.TrayRequest); mis nodig mis niet 
             }
         }
     }
@@ -156,6 +156,18 @@ public class AmrHandler
                 EmergencyActive();
                 _amrControllerRun.SayEstop();
             }
+            else
+            {
+                _amrControllerRun.Send_to(AmrPositions.TestOpstelling, AmrResponses.TestOpstelling);
+                if (_amrControllerRun.TrayRequest())
+                {
+                    Console.WriteLine("-----------------------------------------TrayrequestEstop");
+                    _amrStop = true;
+                    EmergencyActive();
+                    _amrControllerRun.SayEstop();
+                }
+            }
+
         }
     }
 
@@ -163,14 +175,14 @@ public class AmrHandler
     {
         _amrRun = false;
         _amrControllerRun?.Emergency_Active();
-        //_plcController?.Emergency_Active();
+        _plcController?.Emergency_Active();
     }
 
     private void EmergencyInActive()
     {
         if (!_amrStop && !_plcStop)
         {
-            //_plcController?.Emergency_InActive();
+            _plcController?.Emergency_InActive();
             if ((bool)_amrControllerRun?.Emergency_InActive())
             {
                 _amrRun = true;

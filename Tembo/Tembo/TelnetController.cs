@@ -7,7 +7,7 @@ namespace Tembo
         Stream _stream;
 
         /// <summary>
-        /// Contstructor for telnet controller to start connection 
+        /// Constructor for telnet controller to start connection 
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <param name="portNumber"></param>

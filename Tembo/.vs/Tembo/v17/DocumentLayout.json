@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|c:\\users\\lucmb\\desktop\\school\\jaar_3\\tembo-pickupautomisationv2\\tembo\\tembo\\telnetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|solutionrelative:tembo\\telnetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|c:\\users\\lucmb\\desktop\\school\\jaar_3\\tembo-pickupautomisationv2\\tembo\\tembo\\amrhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|solutionrelative:tembo\\amrhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|c:\\users\\lucmb\\desktop\\school\\jaar_3\\tembo-pickupautomisationv2\\tembo\\tembo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|solutionrelative:tembo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|c:\\users\\lucmb\\desktop\\school\\jaar_3\\tembo-pickupautomisationv2\\tembo\\tembo\\amrcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|solutionrelative:tembo\\amrcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|c:\\users\\lucmb\\desktop\\school\\jaar_3\\tembo-pickupautomisationv2\\tembo\\tembo\\plccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|solutionrelative:tembo\\plccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|c:\\users\\lucmb\\desktop\\school\\jaar_3\\tembo-pickupautomisationv2\\tembo\\tembo\\amrhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|solutionrelative:tembo\\amrhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|c:\\users\\lucmb\\desktop\\school\\jaar_3\\tembo-pickupautomisationv2\\tembo\\tembo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|solutionrelative:tembo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|c:\\users\\lucmb\\desktop\\school\\jaar_3\\tembo-pickupautomisationv2\\tembo\\tembo\\telnetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D7D0B6FE-7FAD-494D-A85F-DFC7890613A1}|Tembo\\Tembo.csproj|solutionrelative:tembo\\telnetcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,20 +58,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "AMRController.cs",
+              "DocumentMoniker": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\AMRController.cs",
+              "RelativeDocumentMoniker": "Tembo\\AMRController.cs",
+              "ToolTip": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\AMRController.cs",
+              "RelativeToolTip": "Tembo\\AMRController.cs",
+              "ViewState": "AQIAAKwAAAAAAAAAAAAAwLAAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-07T08:26:00.229Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "TelnetController.cs",
               "DocumentMoniker": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\TelnetController.cs",
               "RelativeDocumentMoniker": "Tembo\\TelnetController.cs",
               "ToolTip": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\TelnetController.cs",
               "RelativeToolTip": "Tembo\\TelnetController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAPAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-07T08:14:20.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-07T08:14:20.173Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\Program.cs",
               "RelativeDocumentMoniker": "Tembo\\Program.cs",
@@ -75,18 +91,17 @@
               "RelativeToolTip": "Tembo\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-07T08:14:17.997Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-07T08:14:17.997Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "AMRHandler.cs",
               "DocumentMoniker": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\AMRHandler.cs",
               "RelativeDocumentMoniker": "Tembo\\AMRHandler.cs",
               "ToolTip": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\AMRHandler.cs",
               "RelativeToolTip": "Tembo\\AMRHandler.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAwBsAAAASAAAA",
+              "ViewState": "AQIAAGIAAAAAAAAAAAAUwFQAAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-07T08:10:22.001Z",
               "EditorCaption": ""
@@ -99,10 +114,9 @@
               "RelativeDocumentMoniker": "Tembo\\PLCController.cs",
               "ToolTip": "C:\\Users\\lucmb\\Desktop\\school\\jaar_3\\Tembo-PickupAutomisationV2\\Tembo\\Tembo\\PLCController.cs",
               "RelativeToolTip": "Tembo\\PLCController.cs",
-              "ViewState": "AQIAADMAAAAAAAAAAAAAAD8AAAAIAAAA",
+              "ViewState": "AQIAAC4AAAAAAAAAAAA5wCoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-07T08:10:21.386Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-07T08:10:21.386Z"
             }
           ]
         },
