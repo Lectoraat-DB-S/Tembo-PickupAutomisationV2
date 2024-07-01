@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using TwinCAT.Ads;
+using TwinCAT.Ads.Server;
 using TwinCAT.TypeSystem;
 
 namespace Tembo
@@ -15,12 +16,26 @@ namespace Tembo
         /// <exception cref="Exception"></exception>
         public PlcController(AmsAddress amsnetid) 
         {
-            _plcConnection.Connect(amsnetid);
-            Console.WriteLine("Connected: " + _plcConnection.IsConnected.ToString());
-            if (!_plcConnection.IsConnected)
+            try
             {
-                throw new Exception("Twincat not available");
+                _plcConnection.Connect(amsnetid);
+                Console.WriteLine("Connected: " + _plcConnection.IsConnected.ToString());
+                if (!_plcConnection.IsConnected)
+                {
+                    throw new Exception("Twincat not available");
+                }
             }
+            catch (AdsServerException e)
+            {
+                _plcConnection.Connect(851);
+                Console.WriteLine("Connected: " + _plcConnection.IsConnected.ToString());
+                if (!_plcConnection.IsConnected)
+                {
+                    throw new Exception("Twincat not available");
+                }
+                Console.WriteLine("Connected via Localhost");
+            }
+           
             Console.WriteLine("Local Address: " + _plcConnection.Address);
         }
 
@@ -66,15 +81,15 @@ namespace Tembo
     /// </summary>
     public enum PlcSymbols
     {
-        [Description("IO.StartButton")]
+        [Description("GVL.StartButton")]
         StartButton,
-        [Description("IO.PLC_Ready")]
+        [Description("GVL.PLCReady")]
         PlcReady,
-        [Description("IO.TrayRequest")]
+        [Description("GVL.TrayRequest")]
         TrayRequest,
-        [Description("IO.ResetButton")]
+        [Description("GVL.ResetButton")]
         ResetButton, 
-        [Description("IO.EmergencyStop")]
+        [Description("GVL.stopknop")]
         EmergencyStop
     }
 }

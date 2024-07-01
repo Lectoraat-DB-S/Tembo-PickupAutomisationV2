@@ -180,7 +180,7 @@ namespace Tembo
             DoMacro(Macros.MotorsUp); //MotorsUp macro
 
             if (_eStop) return true;
-            MoveAmr(1400, 100);
+            MoveAmr(1350, 100);
 
             if (_eStop) return true;
             DoMacro(Macros.MotorsDown); //Motors down

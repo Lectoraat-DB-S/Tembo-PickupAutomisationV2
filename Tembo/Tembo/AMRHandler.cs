@@ -6,7 +6,7 @@ namespace Tembo;
 
 public class AmrHandler
 {
-    private readonly AmsAddress _amsnetid = new("10.100.1.10.1.1");
+    private readonly AmsAddress _amsnetid = new("10.100.1.10.1.1", 851);
     private readonly string _amrIp = "10.38.4.171";
     private readonly int _amrPort = 7171;
 
@@ -124,7 +124,6 @@ public class AmrHandler
         while (_amrReady && _amrRun)
         {
             Debug.Assert(_plcController != null, nameof(_plcController) + " != null");
-            Console.Write("TrayRequest:");
             if (_plcController.PLCSymbol_bool(PlcSymbols.TrayRequest))
             {
                 _amrReady = false;
